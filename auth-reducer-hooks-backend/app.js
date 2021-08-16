@@ -59,3 +59,23 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+
+
+// app.js 
+// we have passport, we bring it in at the top and we also bring in userPassportStrategy. 
+// in userPassport, we also bring in jwtStrategy. it says i want to use this strategy called (passport-jwt).strategy and we extract it out.
+// bring in our user and we bring in our env secret key.
+
+// jwtOtps.JwtFromRequests = extractJwt.fromAughtHeaderasBearerToken().  check auth-backend file from a few weeks ago to understand wat it is. this function is handling it for us so we dont have to retype it.
+// jwtOpts.sercreOrKey = keys  checks the keys.
+
+// const userJWTLOGINSTRAT is a new strat. i wanna use a new strat and set it as a variable. pass in our jwtObpts(obj), passing in async, pass in our payload. payload is the decoded token that has our username and email. done is the same thing as next ().
+
+// if useremail exists, we check if the email belongs to a user in our database.
+// if the !user (doesnt exist), return null false, else return null and the user. once this is done, we go back to app.js. (we already brought it in as userPassportStrat)
+
+// passport.use('jwt-user',userPassportStrat.) the jwt-user is the name of path we want to use. it must match our path in our router when we call for it. then we call the func we just created.
+
+// not everyone can update profile, so how do we use passport.authentication. 
+
+// log in and grab the token from ur cookie.

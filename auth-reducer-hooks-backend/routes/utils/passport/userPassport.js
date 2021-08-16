@@ -11,8 +11,8 @@ jwtOpts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken(); //we attached
 jwtOpts.secretOrKey = keys; // acts like our slice(req.headers(7))
 
 const userJWTLoginStrategy = new JwtStrategy(jwtOpts, async (payload, done) => {
-    const userEmail = payload.userEmail;
-
+    const userEmail = payload.email;
+    console.log(payload);
     try {
         if (userEmail) { // if there is an email
             const user = await User.findOne({ email: userEmail }).select('-password')// find it in our database,
