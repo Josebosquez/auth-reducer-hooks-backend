@@ -17,10 +17,15 @@ mongoose
   .catch((e) => console.log(e))
 
 var app = express();
+console.log(process.env.NODE_ENV)
+let originUrl = process.env.NODE_ENV === "development"
+  ? "http://localhost:3000"
+  : "DEPLOY URL";
 
 const usersRouter = require('./routes/users/usersRouter')
 
-app.use(cors())
+app.use(cors({ origin: 'http://localhost:3000', credentials: true })) // to help with cookies
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
