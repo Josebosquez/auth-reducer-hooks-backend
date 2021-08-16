@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
@@ -5,7 +7,8 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var cors = require('cors');
 
-require('dotenv').config();
+const passport = require("passport")
+const userPassportStrategy = require('./routes/utils/passport/userPassport')
 
 mongoose
   .connect(process.env.MONGO_DB, {
@@ -17,7 +20,11 @@ mongoose
   .catch((e) => console.log(e))
 
 var app = express();
-console.log(process.env.NODE_ENV)
+
+app.use(passport.initialize())
+
+passport.use('jwt-user', userPassportStrategy)
+
 let originUrl = process.env.NODE_ENV === "development"
   ? "http://localhost:3000"
   : "DEPLOY URL";
